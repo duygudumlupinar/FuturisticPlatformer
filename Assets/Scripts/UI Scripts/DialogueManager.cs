@@ -22,6 +22,8 @@ public class DialogueManager : MonoBehaviour
     {
         animator.SetTrigger("Open");
 
+        Time.timeScale = 0f;
+
         nameText.text = dialogue.name;
 
         sentences.Clear();
@@ -45,6 +47,8 @@ public class DialogueManager : MonoBehaviour
         {
             animator.ResetTrigger("Open");
             animator.SetTrigger("Close");
+
+            Time.timeScale = 1f;
         }
     }
 }
