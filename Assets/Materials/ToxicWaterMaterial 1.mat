@@ -75,7 +75,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _InColor: {r: 0.09366568, g: 0.28301886, b: 0, a: 0}
-    - _OutColor: {r: 1, g: 0.9786698, b: 0, a: 0}
+    - _OutColor: {r: 0.71095455, g: 1, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

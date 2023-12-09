@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(rb.velocity.y < 0f)
         {
-            rb.gravityScale = 2f;
+            rb.gravityScale = 3f;
         }
         else
         {
