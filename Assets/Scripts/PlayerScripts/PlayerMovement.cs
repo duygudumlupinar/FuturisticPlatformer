@@ -68,9 +68,7 @@ public class PlayerMovement : MonoBehaviour
         if(facingRight && horizontalMovement < 0f || !facingRight && horizontalMovement > 0f)
         {
             facingRight = !facingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1;
-            transform.localScale = localScale;
+            transform.Rotate(0f,180f,0f);
         }
     }
 
@@ -95,5 +93,10 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         transform.position = respawningPoint;
+    }
+
+    public void Die()
+    {
+        StartCoroutine (WaitBeforeRespawn());
     }
 }
