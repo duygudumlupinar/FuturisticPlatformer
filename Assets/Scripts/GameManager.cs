@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     IEnumerator EndScreen()
     {
         yield return new WaitForSeconds(2);
+        Time.timeScale = 0f;
         endScreen.SetActive(true);
     }
 }

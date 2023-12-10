@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] AudioClip shootSound;
     public Transform firePoint;
     public GameObject bulletPrefab;
+    
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -18,6 +26,6 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        // shooting sound ------------------------------------
+        audioSource.PlayOneShot(shootSound);
     }
 }

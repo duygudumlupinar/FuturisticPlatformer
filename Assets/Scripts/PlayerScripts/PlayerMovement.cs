@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
     private float horizontalMovement;
     private float verticalMovement;
+    private AudioSource audioSource;
 
     public float jumpForce = 7f;
     public float walkingSpeed = 8f;
@@ -24,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         // to respawn player after fail
         startingPoint = transform.position;
         respawningPoint = transform.position;
-
+        audioSource = GetComponent<AudioSource>();
     }
 
    
@@ -47,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 1f;
         }
 
+        if(rb.velocity.x == 0f && IsGrounded())
+        {
+            audioSource.Play();
+        }
         // check sprite direction
         Flip();
     }
@@ -91,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator WaitBeforeRespawn()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         transform.position = respawningPoint;
     }
 

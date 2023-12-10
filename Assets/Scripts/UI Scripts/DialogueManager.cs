@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     private Queue<string> sentences;
+    private AudioSource audioSource;
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
@@ -16,11 +17,14 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
         animator.SetTrigger("Open");
+
+        audioSource.Play();
 
         Time.timeScale = 0f;
 
@@ -45,6 +49,8 @@ public class DialogueManager : MonoBehaviour
         }
         else if (sentences.Count == 0)
         {
+            audioSource.Stop();
+
             animator.ResetTrigger("Open");
             animator.SetTrigger("Close");
 

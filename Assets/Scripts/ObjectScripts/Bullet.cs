@@ -20,8 +20,15 @@ public class Bullet : MonoBehaviour
         if(collision.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().TakeDamage(damage);
+            collision.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            collision.GetComponent<EnemyController>().enemyState = EnemyState.ATTACK;
         }
+
         //Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+
+        if (collision.tag != "Bullet")
+        {
+            Destroy(gameObject);
+        }
     }
 }

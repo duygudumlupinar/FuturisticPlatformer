@@ -5,14 +5,23 @@ using static UnityEngine.GraphicsBuffer;
 
 public class FriendEnemy : MonoBehaviour
 {
+    [SerializeField] AudioClip shootSound;
+
     private bool isFacingRight = true;
     private float timer;
     private bool isAttacking = false;
+    private AudioSource audioSource;
 
     public GameObject gun;
     public GameObject bulletPrefab;
     public Transform firePoint;
     public Transform target;
+    public EnemyState enemyState;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -35,8 +44,9 @@ public class FriendEnemy : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if (timer > 2)
+        if (timer > 1)
         {
+            audioSource.PlayOneShot(shootSound);
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             timer = 0;
         }

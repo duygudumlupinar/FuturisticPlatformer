@@ -22,6 +22,10 @@ public class EnemyBullet : MonoBehaviour
             collision.GetComponent<PlayerHealth>().TakeDamage(damage);
         }
         //Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        
+        if(collision.tag != "Bullet")
+        {
+            Destroy(gameObject);
+        }
     }
 }

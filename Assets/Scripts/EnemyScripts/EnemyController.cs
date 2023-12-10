@@ -11,13 +11,16 @@ public enum EnemyState
 
 public class EnemyController : MonoBehaviour
 {
-    private EnemyState enemyState;
+    [SerializeField] AudioClip shootSound;
+
+    public EnemyState enemyState;
     private float speed = 4f;
     private Transform target;
     private bool isFacingRight;
     private float timer;
     private Transform currentPoint;
     private Rigidbody2D rb;
+    private AudioSource audioSource;
 
     public Transform firePoint;
     public Transform pointA;
@@ -34,6 +37,7 @@ public class EnemyController : MonoBehaviour
         target = GameObject.FindWithTag("Player").transform;
         isFacingRight = true;
         currentPoint = pointB;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -79,9 +83,11 @@ public class EnemyController : MonoBehaviour
         {
             timer += Time.deltaTime;
             eyeLight.SetActive(true);
+            audioSource.Play();
 
-            if (timer > 2)
+            if (timer > 1)
             {
+                audioSource.PlayOneShot(shootSound);
                 Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
                 timer = 0;
             }
