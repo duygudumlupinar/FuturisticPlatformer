@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public GameObject endScreen;
     public void EndGame()
     {
+        endScreen.SetActive(true);
+        endScreen.GetComponent<Animator>().Play("EndingScreenFade");
         StartCoroutine(EndScreen());
     }
 
@@ -15,6 +17,5 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Time.timeScale = 0f;
-        endScreen.SetActive(true);
     }
 }
