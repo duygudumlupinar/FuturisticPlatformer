@@ -16,7 +16,6 @@ public class FriendEnemy : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public Transform target;
-    public EnemyState enemyState;
 
     private void Start()
     {

@@ -15,17 +15,18 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
     private float horizontalMovement;
     private float verticalMovement;
-    private AudioSource audioSource;
+    private Animator animator;
 
     public float jumpForce = 7f;
     public float walkingSpeed = 8f;
+    public GameObject deathEffect;
 
     void Start()
     {
         // to respawn player after fail
         startingPoint = transform.position;
         respawningPoint = transform.position;
-        audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
    
@@ -48,10 +49,6 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 1f;
         }
 
-        if(rb.velocity.x == 0f && IsGrounded())
-        {
-            audioSource.Play();
-        }
         // check sprite direction
         Flip();
     }
@@ -60,7 +57,14 @@ public class PlayerMovement : MonoBehaviour
     {
         // HORIZONTAL MOVEMENT
         rb.velocity = new Vector2(horizontalMovement * walkingSpeed, rb.velocity.y);
-        // walking animation and sound ----------------------
+        if(Mathf.Abs(horizontalMovement) > 0f && IsGrounded())
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
     }
 
     private bool IsGrounded()
@@ -88,10 +92,6 @@ public class PlayerMovement : MonoBehaviour
         {
             respawningPoint = transform.position;
         }
-        else if (collision.tag == "EndPoint")
-        {
-            // ending cutscene --------------------------
-        }
     }
 
     private IEnumerator WaitBeforeRespawn()
@@ -102,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
         StartCoroutine (WaitBeforeRespawn());
     }
 }

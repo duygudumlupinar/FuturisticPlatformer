@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour
     public int damage = 30;
     public float speed = 10f;
     private Rigidbody2D rb;
-    //public GameObject impactEffect;
+    public GameObject impactEffect;
 
     void Start()
     {
@@ -20,8 +20,8 @@ public class EnemyBullet : MonoBehaviour
         if (collision.tag == "Player")
         {
             collision.GetComponent<PlayerHealth>().TakeDamage(damage);
+            Instantiate(impactEffect, transform.position, Quaternion.identity);
         }
-        //Instantiate(deathEffect, transform.position, Quaternion.identity);
         
         if(collision.tag != "Bullet")
         {

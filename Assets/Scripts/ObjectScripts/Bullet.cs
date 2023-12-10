@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public int damage = 25;
     public float speed = 20f;
     private Rigidbody2D rb;
-    //public GameObject impactEffect;
+    public GameObject impactEffect;
 
     void Start()
     {
@@ -21,10 +21,12 @@ public class Bullet : MonoBehaviour
         {
             collision.GetComponent<Enemy>().TakeDamage(damage);
             collision.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            collision.GetComponent<EnemyController>().enemyState = EnemyState.ATTACK;
+            if(collision.gameObject.name != "Effy")
+            {
+                collision.GetComponent<EnemyController>().enemyState = EnemyState.ATTACK;
+            }
+            Instantiate(impactEffect, transform.position, Quaternion.identity);
         }
-
-        //Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         if (collision.tag != "Bullet")
         {
