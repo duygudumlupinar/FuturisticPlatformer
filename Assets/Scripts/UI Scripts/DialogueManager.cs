@@ -45,7 +45,8 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count > 0)
         {
             string sentence = sentences.Dequeue();
-            dialogueText.text = sentence;
+            StopAllCoroutines();
+            StartCoroutine(TypeSentence(sentence));
         }
         else if (sentences.Count == 0)
         {
@@ -55,6 +56,17 @@ public class DialogueManager : MonoBehaviour
             animator.SetTrigger("Close");
 
             Time.timeScale = 1f;
+        }
+    }
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        dialogueText.text = "";
+
+        foreach (char letter in sentence.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return new WaitForEndOfFrame();
         }
     }
 }
